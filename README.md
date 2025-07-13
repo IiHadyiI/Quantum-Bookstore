@@ -7,7 +7,7 @@ System Design and Architecture
 
 ## Why Demos are EBooks — Not a Separate Demo Class
 One of the system’s important features is allowing users to preview books via demos.
-Instead of creating a separate Demo class, we made the demo itself an EBook object.
+Instead of creating a separate Demo class, I made the demo itself an EBook object.
 
 Advantages:
     -Reusability: Demos naturally need pagination, page reading, and session management — all features already built into EBook.
