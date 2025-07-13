@@ -27,9 +27,9 @@ Benefits:
    Cleanly separates shared and specific behaviors between product types
 
 #ScreenShots for the app:
-![Test results:](./screenshots/screenshot1.png)
-![User_View:](./screenshots/screenshot2.png)
-![Buying a book:](./screenshots/screenshot3.png)
-![Navigating through a book](./screenshots/screenshot4.png)
-![Admin_View and adding an EBook](./screenshots/screenshot5.png)
-![Removing expired books](./screenshots/screenshot6.png)
+![Test results:](./screenshots/Screenshot1.png)
+![User_View:](./screenshots/Screenshot2.png)
+![Buying a book:](./screenshots/Screenshot3.png)
+![Navigating through a book](./screenshots/Screenshot4.png)
+![Admin_View and adding an EBook](./screenshots/Screenshot5.png)
+![Removing expired books](./screenshots/Screenshot6.png)
