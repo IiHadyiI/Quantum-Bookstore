@@ -15,9 +15,11 @@ class EBook;
 class Book : public product
 {
 private:
+    const int SECONDS_PER_DAY = 86400;
     const std::string title,ISBN,author_name,year;
     vector<string>demo;
     int price;
+    time_t expiry_date=time(0);
     bool hasDemo;
 protected:
      shared_ptr<EBook>Demo;
@@ -32,6 +34,8 @@ public:
     virtual bool buy_book(string&book_pdf)=0;
     bool has_demo()const;
     shared_ptr<EBook>get_demo_book();
+    void set_expiry_date(int days_from_now);
+    bool is_expired() const;
     virtual ~Book();
 };
 Book::Book(){}
@@ -40,6 +44,7 @@ Book::Book(std::string tilte,std::string ISBN,std::string author_name,int number
 {
     if(!demo.empty())
         hasDemo=true;
+    set_expiry_date(365*2);
 }
 const std::string&Book::get_book_title()const{
     return title;
@@ -55,6 +60,14 @@ bool Book::has_demo()const{
 }
 shared_ptr<EBook>Book::get_demo_book(){
     return Demo;
+}
+void Book::set_expiry_date(int days_from_now) {
+    time_t now = time(0);
+    expiry_date = now + (days_from_now *SECONDS_PER_DAY);
+}
+
+bool Book::is_expired() const {
+    return time(0) > expiry_date;
 }
 Book::~Book()
 {

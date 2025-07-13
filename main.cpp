@@ -3,6 +3,7 @@
 #include "User.h"
 #include "UserManager.h"
 #include "Admin.h"
+#include "TestClass.h"
 using namespace :: std;
 class OnlineReaderSystem {
 private:
@@ -43,7 +44,10 @@ public:
 		}
 	}
 };
-int main(){
+int main() {
+    InventoryBlackBoxTester tester;
+    tester.RunAll();
+    
 	OnlineReaderSystem sys=OnlineReaderSystem();
 	sys.Run();
 }	

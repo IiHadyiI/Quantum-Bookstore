@@ -111,19 +111,23 @@ public:
 	User* GetCurrentUser() const {
 		return current_user;
 	}
-    bool buy_book(shared_ptr<Book>book,PaymentCard&card,PurchaseService&purchaseService){
-		bool is_paid=purchaseService.ChargeCost(book->get_price(),card);
-		auto Ebook = std::dynamic_pointer_cast<EBook>(book);
-        if(is_paid){
-			if(Ebook)
-				current_user->add_session(*Ebook);
-            string book_pdf;
-			if(book->buy_book(book_pdf)){
-			    purchaseService.buy(book_pdf,*current_user);
-			    return 1;
+    int buy_book(shared_ptr<Book>book,PaymentCard&card,PurchaseService&purchaseService){
+        string book_pdf;
+        if(book->buy_book(book_pdf)){
+            int is_paid=purchaseService.ChargeCost(book->get_price(),card);
+            auto Ebook = std::dynamic_pointer_cast<EBook>(book);
+            if(is_paid){
+                if(Ebook)
+                    current_user->add_session(*Ebook);
+                
+                purchaseService.buy(book_pdf,*current_user);
+                return is_paid;
             }
-            return 0;
-		}
+            else
+                "Payment process failed\n";
+        }
+        else    
+            cout << "Quantity isn't enough! \n";
 		return 0;
     }
     void start_session(){

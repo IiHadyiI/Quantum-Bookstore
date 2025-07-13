@@ -75,15 +75,18 @@ void Admin::admin_menu()const{
         std::cout << "Menu:\n"
             << "\t\t1: View Profile\n"
             << "\t\t2: AddBook\n"
-            << "\t\t3: Logout\n" 
-            << "Enter number in range 1 - 3: ";
-        int choise;
-        std::cin >> choise;
-        if(choise==1)
+            << "\t\t3: Remove Expired Books\n"
+            << "\t\t4: Logout\n" 
+            << "Enter number in range 1 - 4: ";
+        int choice;
+        std::cin >> choice;
+        if(choice==1)
             view_profile();
-        else if(choise==2)
+        else if(choice==2)
             add_book();
-        else if(choise==3)
+        else if (choice == 3)
+            inventory.remove_expired_books();
+        else if(choice==4)
             break;
     }
 };

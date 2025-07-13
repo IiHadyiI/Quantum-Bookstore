@@ -162,7 +162,7 @@ public:
 		}
 	}
 
-	int ListAvailableBooks(PurchaseService&purchaseService) {
+	void ListAvailableBooks(PurchaseService&purchaseService) {
 		inventory.display_all_books();
 
 		cout << "\nOur current book collection:\n";
@@ -171,12 +171,13 @@ public:
 		cout << "\nWhich book to read?: ";
 		int choice = ReadInt(1, idx);	// For simplicity, assume a new book is selected
 		if(choice>10){
-			if(users_manager.buy_book(inventory.get_book_by_index((choice/10)-1)->get_demo_book(),paymentCard,purchaseService))
-				return (inventory.get_book_by_index((choice/10)-1)->get_demo_book()->get_price());
+			cout << "Paid amount: " << 
+			users_manager.buy_book(inventory.get_book_by_index((choice/10)-1)->get_demo_book(),paymentCard,purchaseService);
 		}
-		else if(users_manager.buy_book(inventory.get_book_by_index(choice-1),paymentCard,purchaseService))
-			return (inventory.get_book_by_index(choice-1)->get_price());
-		return 0;
+		else{
+			cout << "Paid amount: " << 
+			users_manager.buy_book(inventory.get_book_by_index(choice-1),paymentCard,purchaseService);
+		}
 	}
 };
 

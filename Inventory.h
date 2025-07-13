@@ -1,10 +1,11 @@
 #ifndef INVENTORY_H_
 #define INVENTORY_H_
-
+#include <time.h>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <memory>
+#include <algorithm>
 #include "Book.h"
 
 class Inventory {
@@ -13,6 +14,7 @@ private:
 
 public:
     void add_book(std::shared_ptr<Book> book) {
+        
         books.push_back(book);
     }
 
@@ -32,7 +34,7 @@ public:
 
     void display_all_books() const {
         for (size_t i = 0; i < books.size(); ++i) {
-            std::cout << i + 1 << ". " << books[i]->get_book_title() ;
+            std::cout << i + 1 << ". " << books[i]->get_book_title() << " - Price: " << books[i]->get_price() ;
             if(books[i]->has_demo())
                 cout << "\t" << i+1 << "2-View demo ";
             cout << "\n";
@@ -59,7 +61,14 @@ public:
             ,vector<string>{ "A Data", "B Data", "C Data", "D Data", "E Data" });
 		add_book(book3);
 	}
-
+    void remove_expired_books() {
+        cout << "Removing expired books...\n";
+        books.erase(remove_if(books.begin(), books.end(),
+            [](shared_ptr<Book> book) {
+                return book->is_expired();
+            }), books.end());
+        cout << "Done.\n";
+    }
 };
 
 #endif

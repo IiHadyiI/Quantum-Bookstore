@@ -11,9 +11,10 @@ using namespace::std;
 class PurchaseService {
 private:
     ExoServices&exo;
+    const double fees;
 public:
     PurchaseService(ExoServices&exo)
-    :exo(exo){}
+    :exo(exo),fees(50){}
     bool buy(string book_pdf, User& user) {
         if (!book_pdf.empty()) {
             exo.mail(user.get_email(),book_pdf);
@@ -25,8 +26,9 @@ public:
         cout << "Unknown product type";
         return 0;
     }
-    bool ChargeCost(double cost, PaymentCard &payment_card) const {
-        return 1;
+    int ChargeCost(double cost, PaymentCard &payment_card) const {
+
+        return cost+fees;
     }
 };
 
