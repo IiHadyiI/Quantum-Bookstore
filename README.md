@@ -4,6 +4,10 @@
 An interactive console-based C++ application that simulates an online book store and reader system. It allows users to browse, buy, and read books (both eBooks and paper books), view reading history, and manage their personal profiles. Administrators can manage inventory, remove expired books, and add new titles.
 System Design and Architecture
 
+In addition to sending purchased books (or demos) to users via simulated email or delivery service, the system allows users to **open a reading session inside the application itself**.
+- Users can navigate pages forward and backward.
+- Sessions track the page number and last session date.
+- Reading history is saved and viewable later.
 
 ## Why Demos are EBooks — Not a Separate Demo Class
 One of the system’s important features is allowing users to preview books via demos.
