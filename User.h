@@ -172,11 +172,11 @@ public:
 		int choice = ReadInt(1, idx);	// For simplicity, assume a new book is selected
 		if(choice>10){
 			cout << "Paid amount: " << 
-			users_manager.buy_book(inventory.get_book_by_index((choice/10)-1)->get_demo_book(),paymentCard,purchaseService);
+			users_manager.buy_product(inventory.get_book_by_index((choice/10)-1)->get_demo_book(),paymentCard,purchaseService);
 		}
 		else{
 			cout << "Paid amount: " << 
-			users_manager.buy_book(inventory.get_book_by_index(choice-1),paymentCard,purchaseService);
+			users_manager.buy_product(inventory.get_book_by_index(choice-1),paymentCard,purchaseService);
 		}
 	}
 };

@@ -8,39 +8,48 @@
 using namespace::std;
 enum BookType{EBOOK,PAPERBOOK};
 class User;
-class product{
-
+class Product{
+private:
+    double price;
+    string description;
+public:
+    Product(double price,string description)
+    :price(price),description(description){}
+    virtual const double&get_price(){
+        return price;
+    };
+    virtual std::string get_product_description(){
+        return description;
+    };
+    virtual bool buy_product(string&any)=0;
+    virtual ~Product() {};
 };
 class EBook;
-class Book : public product
+class Book : public Product
 {
 private:
     const int SECONDS_PER_DAY = 86400;
     const std::string title,ISBN,author_name,year;
     vector<string>demo;
-    int price;
     time_t expiry_date=time(0);
     bool hasDemo;
 protected:
      shared_ptr<EBook>Demo;
 public:
     int number_of_pages;
-    Book();
     Book(std::string tilte,std::string ISBN,std::string author_name,int number_of_pages,int price,vector<string>demo={});
     const std::string&get_book_title()const;
-    const int&get_price()const;
     bool get_isE()const;
     int get_number_of_pages()const;
-    virtual bool buy_book(string&book_pdf)=0;
+    virtual bool buy_product(string&book_pdf)override=0;
     bool has_demo()const;
     shared_ptr<EBook>get_demo_book();
     void set_expiry_date(int days_from_now);
     bool is_expired() const;
     virtual ~Book();
 };
-Book::Book(){}
 Book::Book(std::string tilte,std::string ISBN,std::string author_name,int number_of_pages,int price,vector<string> demo)
-:title(tilte),ISBN(ISBN),author_name(author_name),price(price),demo(demo)
+:Product(price,"Book"),title(tilte),ISBN(ISBN),author_name(author_name),demo(demo)
 {
     if(!demo.empty())
         hasDemo=true;
@@ -48,9 +57,6 @@ Book::Book(std::string tilte,std::string ISBN,std::string author_name,int number
 }
 const std::string&Book::get_book_title()const{
     return title;
-}
-const int&Book::get_price()const{
-    return price;
 }
 int Book::get_number_of_pages()const{
     return number_of_pages;
@@ -83,7 +89,7 @@ class EBook:public Book{
         void add_pages(std::vector<std::string> page);
         std::vector<std::string>&get_book_pages();
         std::string get_page_content(int posistion);
-        virtual bool buy_book(string&book_pdf);
+        virtual bool buy_product(string&book_pdf)override;
         const string to_pdf()const;
 };
 EBook::EBook(std::string tilte,std::string ISBN,std::string author_name,int price,
@@ -105,7 +111,7 @@ std::vector<std::string>&EBook::get_book_pages() {
 const string EBook::to_pdf()const{
     return "Book";
 }
-bool EBook::buy_book(string&book_pdf){
+bool EBook::buy_product(string&book_pdf){
     book_pdf=to_pdf();
     return 1;
 }
@@ -119,7 +125,7 @@ public:
         int number_of_pages,int quantity,vector<string> demo={});
     void inc_quantity(int newQuant);
     bool dec_quantity(int quant);
-    virtual bool buy_book(string&book_pdf);
+    virtual bool buy_product(string&any)override;
     ~PaperBook();
 };
 
@@ -140,7 +146,7 @@ bool PaperBook::dec_quantity(int quant){
     }
     return 0;
 }
-bool PaperBook::buy_book(string&book_pdf){
+bool PaperBook::buy_product(string&any){
     if(quantity)
         return quantity--;
     return 0;

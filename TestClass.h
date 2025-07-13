@@ -58,7 +58,7 @@ public:
         auto ebook = make_shared<EBook>("Clean Code", "303", "Uncle Bob", 450, 5, vector<string>{"page1", "page2", "page3", "page4", "page5"});
 
         string pdf;
-        assert(ebook->buy_book(pdf) == true);
+        assert(ebook->buy_product(pdf) == true);
         assert(!pdf.empty());
 
         int total_payment = purchaseService.ChargeCost(ebook->get_price(), *(new PaymentCard()));

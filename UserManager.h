@@ -111,11 +111,11 @@ public:
 	User* GetCurrentUser() const {
 		return current_user;
 	}
-    int buy_book(shared_ptr<Book>book,PaymentCard&card,PurchaseService&purchaseService){
+    int buy_product(shared_ptr<Product>product,PaymentCard&card,PurchaseService&purchaseService){
         string book_pdf;
-        if(book->buy_book(book_pdf)){
-            int is_paid=purchaseService.ChargeCost(book->get_price(),card);
-            auto Ebook = std::dynamic_pointer_cast<EBook>(book);
+        if(product->buy_product(book_pdf)){
+            int is_paid=purchaseService.ChargeCost(product->get_price(),card);
+            auto Ebook = std::dynamic_pointer_cast<EBook>(product);
             if(is_paid){
                 if(Ebook)
                     current_user->add_session(*Ebook);
